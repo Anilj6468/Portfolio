@@ -45,12 +45,6 @@ const SKILLS = {
   Build:["HTML","CSS","JavaScript","React","Tailwind CSS","Bootstrap", "Media Queries","Responsive Design"],
   Tools:["Git","GitHub","VS Code","Chrome DevTools"],
 };
-
-const QUOTES = [
-  { q:"Anil shipped the design and the code in the time it usually takes us to agree on a mockup.", who:"Riya Kapoor", role:"Co-founder, Ledgerly" },
-  { q:"Our nurses stopped asking where things were. That is the best review a design system can get.", who:"Dr. Sameer Joshi", role:"CMIO, Pulse Health" },
-  { q:"He treats a booking form with the same care as a brand identity. Our studio feels like itself online.", who:"Meera Iyer", role:"Founder, Kiln Studio" }
-];
 /* ===== End of content ===== */
 
 const { useState, useEffect, useRef, useMemo, useCallback } = React;
@@ -235,27 +229,9 @@ function Experience() {
     <ol class="xp">
       ${EXPERIENCE.map(x=>html`<li key=${x.years}>
         <span class="mono">${x.years}</span>
-        <div><h3>${x.title}${x.now && html`<span class="now mono">Now</span>`}</h3><div class="co">${x.co}</div></div>
-        <p>${x.text}</p>
+        <div><h3>${x.title}${x.now && html`<span class="now mono">Now</span>`}</h3></div>
       </li>`)}
     </ol>
-  </section>`;
-}
-
-function Quotes() {
-  const [i,setI] = useState(0);
-  useEffect(()=>{
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id=setInterval(()=>setI(n=>(n+1)%QUOTES.length),7000); return ()=>clearInterval(id);
-  },[]);
-  const q = QUOTES[i];
-  return html`<section class="wrap" aria-label="Client testimonials">
-    <div class="quote">
-      <span class="mono" style=${{color:"inherit",opacity:.6}}>Kind words — ${i+1} / ${QUOTES.length}</span>
-      <blockquote key=${i} class="load" style=${{marginTop:18}}>${q.q}</blockquote>
-      <footer><strong>${q.who}</strong><span>${q.role}</span></footer>
-      <div class="qnav">${QUOTES.map((_,n)=>html`<button key=${n} aria-label=${"Show testimonial "+(n+1)} aria-current=${n===i} onClick=${()=>setI(n)}></button>`)}</div>
-    </div>
   </section>`;
 }
 
@@ -343,7 +319,6 @@ function App() {
       <${Work} onOpen=${setOpen}/>
       <${About}/>
       <${Experience}/>
-      <${Quotes}/>
       <${Contact} toast=${toast}/>
     </main>
     <footer class="site"><div class="wrap">
